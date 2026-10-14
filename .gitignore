@@ -1,0 +1,17 @@
+# 依赖
+node_modules/
+
+# 构建产物
+dist/
+bin/
+
+# LayaAir IDE
+.laya/
+libs/
+
+# 系统文件
+.DS_Store
+
+# 日志
+*.log
+npm-debug.log*

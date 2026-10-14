@@ -1,0 +1,12 @@
+{
+  "name": "due-client-laya-mock-server",
+  "version": "1.0.0",
+  "description": "a zero-dependency mock due websocket server for testing the LayaAir client",
+  "private": true,
+  "scripts": {
+    "start": "node mock-server.js"
+  },
+  "dependencies": {
+    "ws": "^8.18.0"
+  }
+}

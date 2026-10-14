@@ -1,0 +1,26 @@
+{
+  "name": "due-client-laya",
+  "version": "1.0.0",
+  "description": "a client written in typescript of the due game framework for LayaAir",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json"
+  },
+  "author": "fuxiao",
+  "license": "MIT",
+  "homepage": "https://github.com/dobyte/due-client-ts",
+  "keywords": [
+    "due",
+    "due-client",
+    "due-client-laya",
+    "laya",
+    "layaair",
+    "game",
+    "game-server",
+    "game-server-framework"
+  ],
+  "devDependencies": {
+    "typescript": "^5.4.0"
+  }
+}
