@@ -193,6 +193,15 @@ const custom: HandshakeVerifier = (data, signature) => true;
 - `isConnected()` / `isConnecting()`：连接状态查询。
 - `onConnect` / `onDisconnect` / `onReceive` / `onError` / `onHeartbeat`：注册回调。
 
+## 测试
+
+security 模块内置单元测试，覆盖密码学测试向量、服务端签名校验、握手流程与会话加解密：
+
+```bash
+npm test               # 运行 security 单元测试
+npm run test:typecheck # 测试文件类型检查
+```
+
 ## License
 
 [MIT](https://tldrlegal.com/license/mit-license)
