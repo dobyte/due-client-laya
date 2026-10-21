@@ -15,3 +15,7 @@ libs/
 # 日志
 *.log
 npm-debug.log*
+
+# mock 服务自动生成的测试密钥
+example/server/key.pem
+example/server/key.pub.pem

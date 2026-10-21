@@ -1,12 +1,20 @@
 {
   "name": "due-client-laya-mock-server",
   "version": "1.0.0",
-  "description": "a zero-dependency mock due websocket server for testing the LayaAir client",
+  "description": "a mock due websocket server for testing the LayaAir client, with session security support",
   "private": true,
+  "type": "module",
   "scripts": {
-    "start": "node mock-server.js"
+    "start": "tsx mock-server.ts",
+    "typecheck": "tsc -p tsconfig.json"
   },
   "dependencies": {
     "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/ws": "^8.5.10",
+    "tsx": "^4.7.0",
+    "typescript": "^5.7.3"
   }
 }

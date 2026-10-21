@@ -1,7 +1,16 @@
 import { Client, Packer, Message } from "./due";
+import { Verifier } from "./due/security";
 
 // 服务器地址，可在此修改
 const SERVER_URL = "ws://127.0.0.1:3553";
+
+// 是否开启会话安全；开启前请先启动 mock 服务，并把打印的公钥填入 SERVER_PUBLIC_KEY
+const SECURITY_ENABLED = false;
+
+// 服务端公钥（mock 服务首次启动会生成并打印，也可填入真实网关的 key.pub.pem 内容）
+const SERVER_PUBLIC_KEY = `-----BEGIN PUBLIC KEY-----
+MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE...
+-----END PUBLIC KEY-----`;
 
 // 屏幕日志
 let logText: Laya.Text;
@@ -31,6 +40,24 @@ export async function main() {
 
     log(`连接服务器: ${SERVER_URL}`);
 
+    // 会话安全配置：仅在开关开启且已填写公钥时启用
+    const security = SECURITY_ENABLED && SERVER_PUBLIC_KEY.indexOf("...") === -1
+        ? {
+            verifier: Verifier.ecdsa(SERVER_PUBLIC_KEY),
+            // 1=AES-256-GCM，2=ChaCha20-Poly1305
+            suites: [1, 2],
+            handshakeTimeout: 5000,
+        }
+        : undefined;
+
+    if (SECURITY_ENABLED && security === undefined) {
+        log("未填写 SERVER_PUBLIC_KEY，已回退为明文连接");
+    }
+
+    if (security) {
+        log("已开启会话安全，等待握手...");
+    }
+
     // 请求数据
     const buffer = new TextEncoder().encode(JSON.stringify({ message: "hello due" }));
 
@@ -43,12 +70,13 @@ export async function main() {
             seqBytes: 2,
             routeBytes: 2,
             bufferBytes: 5000
-        })
+        }),
+        security
     });
 
-    // 连接成功
+    // 连接成功（开启会话安全时，握手完成后才会触发）
     client.onConnect((c) => {
-        log("连接成功");
+        log(security ? "握手完成，连接成功" : "连接成功");
     });
 
     // 连接断开后自动重连
@@ -71,9 +99,9 @@ export async function main() {
         }
     });
 
-    // 连接错误
+    // 连接或安全握手错误
     client.onError((c) => {
-        log("连接错误");
+        log(security ? "连接或安全握手失败" : "连接错误");
     });
 
     // 建立连接
