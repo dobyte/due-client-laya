@@ -7,7 +7,7 @@
 ```
 example/
 ├── src/
-│   ├── due/            # due 客户端 SDK（packer / client / index）
+│   ├── due/            # due 客户端 SDK（packer / client / security / index）
 │   ├── laya.d.ts       # LayaAir 3.x 最小类型声明（仅用于独立类型检查）
 │   └── Demo.ts         # 启动脚本（导出 main 函数）
 ├── tsconfig.json
